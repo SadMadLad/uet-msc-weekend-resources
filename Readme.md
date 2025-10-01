@@ -13,6 +13,9 @@ Compilation of resources for the courses.
 ## Time Table
 
 ![Time Table](.assets/time-table.png)
+## `.xopp` files
+
+The `.xopp` files are notetaking files opened using [Xournal++](https://github.com/xournalpp/xournalpp/)
 
 ## Contributing
 
