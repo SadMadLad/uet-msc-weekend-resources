@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  25 APR 2026 11:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  8 MAY 2026 16:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**reft.tex
-(./reft.tex
+**survey_paper.tex
+(./survey_paper.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/share/texmf-dist/tex/latex/ieeetran/IEEEtran.cls
@@ -283,8 +283,13 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count310
-) (./reft.aux)
-\openout1 = `reft.aux'.
+)
+(./survey_paper.aux
+
+LaTeX Warning: Label `mobilenet2017' multiply defined.
+
+)
+\openout1 = `survey_paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
@@ -323,35 +328,48 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
+)) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/
+fonts/enc/dvips/base/8r.enc}
+
+
+]
+<../papers/assets/devices.png, id=10, 602.25pt x 602.25pt>
+File: ../papers/assets/devices.png Graphic file (type png)
+<use ../papers/assets/devices.png>
+Package pdftex.def Info: ../papers/assets/devices.png  used on input line 62.
+(pdftex.def)             Requested size: 258.0pt x 258.00673pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 62--63
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <../papers/assets/devices.png>]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 88.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 88.
 
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/f
-onts/enc/dvips/base/8r.enc}
-
-
-]
-Underfull \hbox (badness 1701) in paragraph at lines 115--116
-\OT1/ptm/m/n/8 ``Not All Lan-guage Model Fea-tures Are Lin-ear,'' \OT1/ptm/m/it
-/8 arXiv preprint
+)
+Underfull \hbox (badness 1694) in paragraph at lines 91--92
+ \OT1/ptm/m/it/10 2) Mo-bileNet: [][] \OT1/ptm/m/n/10 The Mo-bileNet se-ries of
+ mod-els is a
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
-[]\OT1/ptm/m/n/8 Gemma Team, ``Gemma 3 tech-ni-cal re-port,'' \OT1/ptm/m/it/8 a
-rXiv preprint
+Underfull \hbox (badness 1796) in paragraph at lines 134--135
+[]\OT1/ptm/m/n/8 J. Ka-plan et al., "Scal-ing Laws for Neu-ral Lan-guage Mod-el
+s,"
  []
 
-[2]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -363,33 +381,33 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3
-
-] (./reft.aux)
+[3] [4] (./survey_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
+
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 4266 strings out of 469515
- 65642 string characters out of 5470807
- 490703 words of memory out of 5000000
- 32880 multiletter control sequences out of 15000+600000
- 665854 words of font info for 112 fonts, out of 8000000 for 9000
+ 4277 strings out of 469515
+ 65934 string characters out of 5470807
+ 490174 words of memory out of 5000000
+ 32893 multiletter control sequences out of 15000+600000
+ 663611 words of font info for 110 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 57i,8n,65p,1374b,278s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy7.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
-mf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/ur
-w/times/utmr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on reft.pdf (3 pages, 109394 bytes).
+ 57i,8n,65p,1121b,278s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/font
+s/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmbi
+8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texm
+f-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on survey_paper.pdf (4 pages, 416157 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 51 PDF objects out of 1000 (max. 8388607)
+ 30 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
