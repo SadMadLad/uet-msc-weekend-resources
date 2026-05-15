@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1778240100.67481 "survey_paper.tex" "survey_paper.pdf" "survey_paper" 1778240101.1341 0
+["pdflatex"] 1778409078.30131 "survey_paper.tex" "survey_paper.pdf" "survey_paper" 1778409078.7666 0
   "../papers/assets/devices.png" 1778098121.07506 375209 b5559fbb7827749da6b271fe68137343 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775415801 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1775415801 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -28,6 +28,7 @@
   "/usr/share/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1775415801 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1775415801 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1775415801 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1775415801 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb" 1775415801 44729 811d6c62865936705a31c797a1d5dada ""
   "/usr/share/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb" 1775415801 44656 0cbca70e0534538582128f6b54593cca ""
   "/usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb" 1775415801 46026 6dab18b61c907687b520c72847215a68 ""
@@ -69,8 +70,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1775415801 43569 fd570f2fa160877d211e859f687312ba ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776303567 5385779 47c0c393a77fd4a098bacfd57d66b88a ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776303986 2328188 1de8071eeda83a3915c399ef8be772ff ""
-  "survey_paper.aux" 1778240101.08506 3858 cc40640782235be208d2dd1128156a47 "pdflatex"
-  "survey_paper.tex" 1778240099.26318 19100 b49bde8e129d2a64503d6a7f11a53212 ""
+  "survey_paper.aux" 1778409078.71714 7041 7980856dc0c6a4c7630246f5e7e3c04d "pdflatex"
+  "survey_paper.tex" 1778409077.25324 34688 254afccdd1f47bbdd48026a1aee1f366 ""
   (generated)
   "survey_paper.aux"
   "survey_paper.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  8 MAY 2026 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  10 MAY 2026 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -359,17 +359,32 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 88.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 1694) in paragraph at lines 91--92
- \OT1/ptm/m/it/10 2) Mo-bileNet: [][] \OT1/ptm/m/n/10 The Mo-bileNet se-ries of
+Underfull \hbox (badness 1694) in paragraph at lines 94--95
+ \OT1/ptm/m/it/10 3) Mo-bileNet: [][] \OT1/ptm/m/n/10 The Mo-bileNet se-ries of
  mod-els is a
  []
 
 
-Underfull \hbox (badness 1796) in paragraph at lines 134--135
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[3] [4]
+Underfull \hbox (badness 1796) in paragraph at lines 199--200
 []\OT1/ptm/m/n/8 J. Ka-plan et al., "Scal-ing Laws for Neu-ral Lan-guage Mod-el
 s,"
  []
 
+
+Underfull \hbox (badness 1496) in paragraph at lines 229--230
+[]\OT1/ptm/m/n/8 X. Zhang, X. Zhou, M. Lin, and J. Sun, "Shuf-fleNet: An ex-
+ []
+
+
+Underfull \hbox (badness 4036) in paragraph at lines 256--257
+\OT1/ptm/m/n/8 Memory-efficient patch-based in-fer-ence for tiny deep learn-ing
+,"
+ []
+
+[5]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -381,7 +396,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[3] [4] (./survey_paper.aux)
+[6
+
+] (./survey_paper.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -392,22 +409,23 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4277 strings out of 469515
- 65934 string characters out of 5470807
- 490174 words of memory out of 5000000
- 32893 multiletter control sequences out of 15000+600000
- 663611 words of font info for 110 fonts, out of 8000000 for 9000
+ 4298 strings out of 469515
+ 66303 string characters out of 5470807
+ 494935 words of memory out of 5000000
+ 32913 multiletter control sequences out of 15000+600000
+ 665196 words of font info for 112 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 57i,8n,65p,1121b,278s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,1321b,292s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/font
-s/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmbi
-8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texm
-f-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on survey_paper.pdf (4 pages, 416157 bytes).
+s/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/urw/tim
+es/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/sh
+are/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/fonts/ty
+pe1/urw/times/utmri8a.pfb>
+Output written on survey_paper.pdf (6 pages, 439361 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 62 PDF objects out of 1000 (max. 8388607)
+ 37 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

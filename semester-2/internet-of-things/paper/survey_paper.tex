@@ -87,27 +87,92 @@
 	\subsubsection{SqueezeNet}
 	SqueezeNet was introduced in 2016 with the goal of matching AlexNet's \cite{alexnet2012} performance with greatly reduced parameter count with minimal memory footprint \cite{squeezenet2016}. SqueezeNet achieves this reduction by using $1\times1$ convolution filters instead of $3\times3$ convolutions. The squeeze layers reduce the number of input channels to subsequent filters. The resulting model has a memory footprint of approximately 4.8MB. This model can be further compressed with deep compression \cite{han2015} (pruning, quantization to 6-bit and huffman coding), resulting in a light 0.48MB model. This deep compression achieved comparable performance to the uncompressed one. While uncompressed SqueezeNet is not suitable for MCUs, there have been deployments of SqueezeNet-like CNNs on microcontrollers like Arduino Portenta H7 Lite \cite{lillo2024}, making SqueezeNet-inspired architectures a potential candidate for tier 1 devices.
 	
+	\subsubsection{ShuffleNet}
+	ShuffleNet achieves reduction is model parameters and computation (FLOPs) by using group convolution and channel shuffling \cite{shufflenet2017}. Instead of connecting every input channel to output channel, channels are split into groups which greatly minimizes computation and parameters. However, because of this grouping, each group sees its own channel which results in loss of information as there is no cross-mixing of the channels. To compensate, the channels are shuffled in the groups. Because of these operations, minimum accuracy is lost with reduction in computation and parameters. Because of this optimization, ShuffleNet is a strong candidate among IoT devices because of low FLOPs and storage requirement, especially the quantized and pruned versions.
+	
 	\subsubsection{MobileNet}
 	The MobileNet series of models is a lightweight architecture of Neural Networks that achieved fairly high accuracy by reducing the computation at inference and lowering the number of parameters \cite{mobilenet2017}. The core innovation of this architecture came from separation of spatial filtering and channel mixing using small filters, which resulted in high accuracy with reduced computation and size. Comparing in to SqueezeNet, the amount of FLOPs (Floating Point Operations) is greatly reduced in MobileNet which makes it even more suitable for lightweight devices with deep compression, as it has been deployed to MCUs like STM32H7 \cite{rusci2019}. The latest release of MobileNetv4 further enhanced the accuracy by utilizing Universal Inverted Bottleneck (UIB) and Mobile Multi-Query Attention (MQA) \cite{mobilenet2024}
 	
-	\begin{table*}[t]
+	\subsubsection{AddressNet}
+	In the paper of AddressNet, two limitations are highlighted of other CNN architectures; MobileNet and ShuffleNet. It states that the shuffling of channels in ShuffleNet uses zero FLOPs but still consumes 24\% of the inference time, and MobileNet's depthwise convolution takes up 20\% of inference time, despite using less parameters \cite{addressnet2018}. To overcome this latency, AddressNet introduces pointer shifts instead of direct memory shifts. This greatly reduces the expensive memory access, decreasing the inference time. This pointer shifting can be done for channel shuffling. Furthermore, AddressNet replaces depthwise convolution by shifting the pointer of the feature map in four directions (up, down, left, right). While AddressNet is not used directly in MCUs, variants and different modifications over this architecture have shown great potential.
+	
+	\subsubsection{EfficientNet}
+	Earlier, the CNN architecture focused on making it wider, deeper or using high resolution images for input. Instead of focusing on only one dimension, EfficientNet argues to scale along all the dimensions in a balanced manner \cite{efficientnet2019}. This balance helps achieve reduced parameter size, better inference and higher accuracy. Similar to other architectures, vanilla EfficientNet is not suitable for MCU deployment but quantized and pruned versions are viable for microcontrollers with minimum accuracy loss.
+	
+	\subsubsection{GhostNet}
+	The authors of GhostNet observed that many of the feature maps learned by CNNs are redundant. Instead of using standard convolution to compute those feature maps, they introduced 'ghost modules' by simple linear transformations of existing feature maps with minimal information loss. This transformation keeps the computation and number of parameters reduced while achieving competent accuracy to that of MobileNetV3 \cite{ghostnet2020}. However, original GhostNet models are relatively large for microcontrollers. Pruning and quantization are a necessity to make them microcontroller feasible.
+	
+	\subsubsection{MCUNet}
+	Instead of treating inference engine and neural network architecture as two separate tasks, MCUNet designs both the system as well as the model \cite{mcunet2020}. MCUNet introduces TinyNAS (Tiny Network Architecture Search) and TinyEngine. TInyNAS optimizes the search space itself based on the hardware - input resolutions, width multipliers, kernel sizes and other architecture options. TinyEngine is the inference engine. Unlike TensorFlow Lite Micro and other frameworks that have big overhead as they are interpreter-based, TinyEngine compiles the exact model instead of interpreting it at runtime. This reduces SRAM, flash overhead and latency. With these optimizations and quantization, MCUNet is easily deployable on microcontrollers. MCUNet was the first neural network on microcontroller to achieve more than 70\% accuracy on ImageNet Top-1 classification. The latest release in MCUNet series is MCUNetV2 which further improves the memory consumption and other parameters of vanilla MCUNet, making it more lightweight as well as more accurate \cite{mcunet2021}.
+	
+	\begin{table*}[h]
 		\centering
-		\caption{Comparison of lightweight CNN architectures for embedded IoT deployment.}
-		\label{tab:cnn_comparison}
-		\begin{tabular}{lcccccc}
-			\hline
-			Model & Year & Parameters & Top-1 Acc. (ImageNet) & Memory (in MBs)& MCU Suitability \\
-			\hline
-			SqueezeNet \cite{squeezenet2016} & 2016 & 1.25M & 57.5 & 4.8 & Low \\
-			SqueezeNet (Deep Compressed) \cite{squeezenet2016} & 2016 & 1.25M & 57.5 & 0.47 & Fairly High \cite{lillo2024} \\
-			1.0 MobileNet-224 (FP32) \cite{mobilenet2017} & 2017 & 4.2M & 70.6 & ~16.8 & Low \\
-			MobileNet-v1 (Mixed Precision) \cite{rusci2019} & 2019 & 4.2M & 68 & ~2 & Fairly High \\
-			MNv4-Conv-S (FP32) \cite{mobilenet2024} & 2024 & 3.8M & 73.8 & ~15.2 & Low \\
-			\hline
-		\end{tabular}
-	\end{table*}
+		\caption{Comparison of lightweight CNN models for MCU deployment}
+		\label{tab:model_comparison}
+		\resizebox{\textwidth}{!}{%
+			\begin{tabular}{|l|c|c|c|c|c|l|}
+				\hline
+				Model & Year & Parameters & Top-1 Acc. (ImageNet) & Memory (MB) & MCU Deployed? & Evidence \\
+				\hline
+				SqueezeNet \cite{squeezenet2016} 								 & 2016 & 1.25M & 57.5\% & 4.8 & No & No MCU deployment found \\
+				SqueezeNet (deep compressed) \cite{squeezenet2016} & 2016 & 1.25M & 57.5\% & 0.47 & Yes & \cite{lillo2024} \\
+				ShuffleNet v1 \cite{shufflenet2017} 								 & 2017 & $\sim$1.42M\textsuperscript{a} & 67.6\% & $\sim$7.5 & No & ARM mobile CPU only \cite{shufflenet2017} \\
+				MobileNet v1 1.0 \cite{mobilenet2017} 							  & 2017 & 4.2M & 70.6\% & $\sim$16.8 & No & No MCU deployment found \\
+				AddressNet-20 \cite{addressnet2018} 							& 2018 & 0.08M & 68.68\% & $\sim$0.32 & No &  No MCU deployment found \\
+				MobileNet v1 (mixed precision) \cite{rusci2019} 			 & 2019 & 4.2M & 68.0\% & $\sim$2.0 & Yes & STM32H743 \cite{rusci2019} \\
+				EfficientNet-B0 \cite{efficientnet2019}								& 2019 & 5.3M & 76.3\% & $\sim$21.2 & No & Too large for MCUs \\
+				GhostNetV1 \cite{ghostnet2020}										& 2020 & 5.2M & 75.7\% & $\sim$20.8 & No & Too large for MCUs \\
+				MCUNet (4-bit) \cite{mcunet2020}								   & 2020 & $\sim$4M & 70.7\% & 1.9 & Yes & STM32 Family \cite{mcunet2020} \\
+				MCUNetV2 (8-bit) \cite{mcunet2021}							     & 2021 & - & 71.8\% & $\sim$2 & Yes & STM32 Family \cite{mcunet2021} \\
+				MNv4-Conv-S \cite{mobilenet2024} 								 & 2024 & 3.8M & 73.8\% & $\sim$15.2 & No & Primarily for mobile CPUs/GPUs \\
+				\hline
+			\end{tabular}%
+		}
+		\begin{minipage}{\textwidth}
+			\centering
+			\vspace{0.5em}
+			\footnotesize
+			\textsuperscript{a} Estimated from architecture table \cite{wolframshufflenet}; not reported in \cite{shufflenet2017}.\\
+		\end{minipage}
+	\end{table*}	
 	
+	\subsection{Transformers}
 	
+	\section{Compression Techniques}
+	
+	\subsection{Pruning}
+	Pruning removes neurons, filters or even entire layers that are doing little for the neural network. The intuition being, neural networks are usually quite dense where most of the neurons are either redundant or doing barely anything for efficiency of the network. Pruning tries to remove those redundant weights, weak neurons and unimportant channels.
+	
+	The earliest implementation of pruning involved calculating second order derivates to approximate the unimportant neurons and then removing them from the network \cite{pruning1990}. One limitation in this approach is that the weights are reduced at initialization, making the removal of weights a little less justified. However, post-training pruning has been quite successful \cite{pruning2015}. In this technique, a neural network is first trained and then later on weights are removed without major sacrifices to accuracy. Then, the remaining network is re-trained for more robustness. These approaches highlighted come under the category of unstructured pruning, where individual weights are removed irrespective of their position in the tensor. This creates irregularities in connectivity and hardware improvements are limited.
+	
+	On the other hand, structural pruning removes entire structural units of the neural network, like filters or channels in CNNs or fully connected layers in DNNs (Dense Neural Networks). Because of entire removal of structural units, the sanctity of the structure remains and we gain boost in hardware performance without any special sparse kernels. Early implementations of structural pruning involve removing filters that are less signficant, based on the criteria of L1 norm \cite{structuralpruning2017}.
+	
+	Extensive analysis has been carried out to understand the impact of pruning on NNs. One hypothesis synthesizes that pruning can reduce the size of the network by 80 to 90\% without sacrificing accuracy where specific modules have won 'the lottery ticket'. When a similar sized network is trained in isolation, the performance is worse. So, the lottery won by pruned model lies in the initialization of the neural network \cite{lotteryhypothesis2019}. This hypothesis has directed the research for pruning, where finding 'the lottery ticket' has become a focus before after initialization and before training \cite{synflow2020}.
+	
+	Pruning is one of the most prominent technique to make neural networks more microcontroller feasible. It has been used in conjunction with quantization and huffman coding to aggressively reduce model sizes \cite{han2015}. Heavier model architectures like MobileNet and SqueezeNet have been pruned and deployed to MCUs \cite{lillo2024}.
+	
+	\subsection{Quantization}
+	Quantization is the most prominent technique of greatly minimizing the model size by quantizing the data type of the neural network to less precision. For high accuracy, neural networks typically use single-precision 32-bit floating point (FP32) for weights. However, FP32 constitutes of 4 bytes. So, a model of 5M parameters is going to take up 20MB of storage, which is not viable for microcontrollers at all. Here, quantization comes into play, where the weights are quantized to a lower precision data type like INT8, INT4 etc, greatly reducing the model size.
+	
+	The earlier impact of quantization can be seen in BinaryConnect, which showed that weights constrained to only -1 or +1 at extremely low precision can work for neural networks \cite{binarynet2015}. One of the influential studies and breakthrough in quantization was achieved by quantizing the floating points to integers \cite{quantization2018}. Floating points have shown to be more compute intensive and slower at inference. But with integers, if done properly, quantization can achieve great reduction in model size without any major sacrifices to accuracy. The authors also introduced Quantization-Aware Training (QAT). Early implementation of quantization will take a model and quantize the learned weights later, which results in greater accuracy drops. With QAT, the model 'simulates' the impact of quantization in the forward pass. This makes models like MobileNet and EfficientNet more microcontroller friendly \cite{quantization2018, han2015, lillo2024, mcunet2020, mcunet2021}. Integer-only quantization has become mainstream for TinyML and frameworks like TensorFlow-Lite. Mixed-precision quantization is also used for even lesser drops in accuracy, where some layers can use high-precision quantized integers while others utilize low-precision weights \cite{rusci2019}.
+	
+	Quantization is easily one of the most extensively used technique to lower the memory footprint of neural networks, increase hardware access and make inference faster, with minimal drops in accuracy.
+	
+	\subsection{Knowledge Distillation}
+	In Knowledge Distillation (KD), a larger model (called teacher), trains a smaller model (students) uses its own internal representations. This is one of the most used technique to train high accuracy, small lightweight IoT devices. KD was introduced in 2014, with the idea that teacher model learns the hard target labels and reasons about it in soft probabilities. The student model then not only learns the 'softer' representations of the teacher, but also the hard labels, making it more concise and rich in learning \cite{knowledgedistillation2014}. This often achieves better convergence, generalization and robustness. While the student learns the output probabilities from the teacher, other approaches learn different parameters from the teachers. For example, FitNets extend the idea of classic KD where the student model learns not only the output probabilities but also the intermediary representations of the teacher \cite{fitnets2015}.
+	
+	Since then, there have been new variations of distillations introduced. In online distillation, teacher and student models are trained in conjunction, compared to classic distillation where teacher is trained first. In self-distillation, the teacher trains itself by using its own soft targets. The soft targets act as smoothening representations that improve the accuracy of the model, making it more 'intelligent' \cite{selfdistilliation2019}. 
+	
+	\subsection{Network Architecture Search (NAS)}
+	
+	\section{Frameworks}
+	
+	\subsection{CMSIS-NN}
+	\subsection{TensorFlow Lite Macro}
+	\subsection{TinyEngine}
+	
+	\section{Applications}
+		
 	\begin{thebibliography}{00}
 		\bibitem{sliwa2024}
 		B. Sliwa, N. Piatkowski and C. Wietfeld, "LIMITS: Lightweight Machine Learning for IoT Systems with Resource Limitations," ICC 2020 - 2020 IEEE International Conference on Communications (ICC), Dublin, Ireland, 2020, pp. 1-7, doi: 10.1109/ICC40277.2020.9149180.
@@ -160,6 +225,9 @@
 		\bibitem{lillo2024}
 		A. Maciá-Lillo, S. Barrachina, G. Fabregat, and M. F. Dolz, "Optimizing convolutions for deep learning inference on ARM Cortex-M processors," IEEE Internet of Things Journal, vol. 11, no. 15, pp. 26203–26219, Aug. 2024, doi: 10.1109/JIOT.2024.3393546.
 		
+		\bibitem{shufflenet2017}
+		X. Zhang, X. Zhou, M. Lin, and J. Sun, "ShuffleNet: An extremely efficient convolutional neural network for mobile devices," arXiv:1707.01083, Jul. 2017.
+		
 		\bibitem{mobilenet2017}
 		A. G. Howard, M. Zhu, B. Chen, D. Kalenichenko, W. Wang, T. Weyand, M. Andreetto, and H. Adam, "MobileNets: Efficient convolutional neural networks for mobile vision applications," arXiv:1704.04861, Apr. 2017.
 		
@@ -168,6 +236,54 @@
 		
 		\bibitem{rusci2019}
 		M. Rusci, A. Capotondi, and L. Benini, "Memory-driven mixed low precision quantization for enabling deep network inference on microcontrollers," arXiv:1905.13082, May 2019.
+		
+		\bibitem{wolframshufflenet}
+		Wolfram Research, "ShuffleNet V1 trained on ImageNet competition data," Wolfram Neural Net Repository, [Online]
+		
+		\bibitem{addressnet2018}
+		H. Zhong, X. Liu, Y. He, and Y. Ma, "Shift-based primitives for efficient convolutional neural networks," arXiv:1809.08458, Sep. 2018.
+		
+		\bibitem{efficientnet2019}
+		M. Tan and Q. Le, "EfficientNet: Rethinking model scaling for convolutional neural networks," in Proceedings of the 36th International Conference on Machine Learning (ICML), Long Beach, CA, USA, Jun. 2019, pp. 6105–6114.
+		
+		\bibitem{ghostnet2020}
+		K. Han, Y. Wang, Q. Tian, J. Guo, C. Xu, and C. Xu, "GhostNet: More features from cheap operations," in *2020 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, Seattle, WA, USA, Jun. 2020, pp. 1577–1586.
+		
+		\bibitem{mcunet2020}
+		J. Lin, W.-M. Chen, Y. Lin, J. Cohn, C. Gan, and S. Han, "MCUNet: Tiny deep learning on IoT devices," in Advances in Neural Information Processing Systems 33 (NeurIPS 2020), Dec. 2020, pp. 1–12.
+		
+		\bibitem{mcunet2021}
+		J. Lin, W.-M. Chen, H. Cai, C. Gan, and S. Han, "MCUNetV2: Memory-efficient patch-based inference for tiny deep learning," arXiv:2110.15352, Oct. 2021.
+		
+		\bibitem{pruning1990}
+		Y. LeCun, J. S. Denker, and S. A. Solla, "Optimal brain damage," in Advances in Neural Information Processing Systems 2 (NIPS 1989), Denver, CO, USA, Nov. 1989, pp. 598–605.
+		
+		\bibitem{pruning2015}
+		S. Han, J. Pool, J. Tran, and W. J. Dally, "Learning both weights and connections for efficient neural network," in Advances in Neural Information Processing Systems 28 (NIPS 2015), Montreal, QC, Canada, Dec. 2015, pp. 1135–1143.
+		
+		\bibitem{structuralpruning2017}
+		H. Li, A. Kadav, I. Durdanovic, H. Samet, and H. P. Graf, "Pruning filters for efficient ConvNets," in 5th International Conference on Learning Representations (ICLR), Toulon, France, Apr. 2017.
+		
+		\bibitem{lotteryhypothesis2019}
+		J. Frankle and M. Carbin, "The lottery ticket hypothesis: Finding sparse, trainable neural networks," in 7th International Conference on Learning Representations (ICLR), New Orleans, LA, USA, May 2019.
+		
+		\bibitem{synflow2020}
+		H. Tanaka, D. Kunin, D. L. K. Yamins, and S. Ganguli, "Pruning neural networks without any data by iteratively conserving synaptic flow," in Advances in Neural Information Processing Systems 33 (NeurIPS 2020), Vancouver, BC, Canada, Dec. 2020, pp. 6377–6389
+		
+		\bibitem{binarynet2015}
+		M. Courbariaux, Y. Bengio, and J.-P. David, "BinaryConnect: Training deep neural networks with binary weights during propagations," in Advances in Neural Information Processing Systems 28 (NIPS 2015), Montreal, QC, Canada, Dec. 2015, pp. 3123–3131.
+		
+		\bibitem{quantization2018}
+		B. Jacob, S. Kligys, B. Chen, M. Zhu, M. Tang, A. Howard, H. Adam, and D. Kalenichenko, "Quantization and training of neural networks for efficient integer-arithmetic-only inference," in *2018 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*, Salt Lake City, UT, USA, Jun. 2018, pp. 2704–2713. doi: 10.1109/CVPR.2018.00286.
+		
+		\bibitem{knowledgedistillation2014}
+		G. Hinton, O. Vinyals, and J. Dean, "Distilling the knowledge in a neural network," presented at the NIPS 2014 Deep Learning Workshop, Montreal, QC, Canada, Dec. 2014.
+		
+		\bibitem{fitnets2015}
+		A. Romero, N. Ballas, S. E. Kahou, A. Chassang, C. Gatta, and Y. Bengio, "FitNets: Hints for thin deep nets," in 3rd International Conference on Learning Representations (ICLR), San Diego, CA, USA, May 2015.
+		
+		\bibitem{selfdistilliation2019}
+		L. Zhang, J. Song, A. Gao, J. Chen, C. Bao, and K. Ma, "Be your own teacher: Improve the performance of convolutional neural networks via self distillation," arXiv:1905.08094, May 2019.
 	
 	\end{thebibliography}
 	

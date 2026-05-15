@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1777097927.78417 "reft.tex" "reft.pdf" "reft" 1777097928.29713 0
+["pdflatex"] 1778691463.37409 "reft.tex" "reft.pdf" "reft" 1778691463.77399 0
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775415801 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1775415801 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1775415801 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -71,8 +71,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1775415801 43569 fd570f2fa160877d211e859f687312ba ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776303567 5385779 47c0c393a77fd4a098bacfd57d66b88a ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776303986 2328188 1de8071eeda83a3915c399ef8be772ff ""
-  "reft.aux" 1777097928.22398 2129 5f08fbbb9e3680522fc759ba7987bbe9 "pdflatex"
-  "reft.tex" 1777097926.63615 13402 feeaa11d9abcb51f33c409557e8fa84b ""
+  "reft.aux" 1778691463.71773 2198 f586ff8b79e271525fec737c430bf248 "pdflatex"
+  "reft.tex" 1778691463.05864 14321 9e60650ba13bd8da7369521998a6abdf ""
   (generated)
   "reft.aux"
   "reft.log"

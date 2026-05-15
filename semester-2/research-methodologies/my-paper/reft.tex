@@ -65,7 +65,9 @@
 	
 	\section{Methodology}
 	
-	The methodology being used in this paper is a layer-wise sweep, applying ReFT on each layer of the lightweight Large Language Models (LLMs) and calculating the accuracy, loss landscape, and analyzing the intervention representations being learnt. The experiments cover both encoder and decoder LLMs on tasks with varying difficulty. The LLMs being experimented on are Qwen-0.6B \cite{yang2025qwen3} and Gemma-1B \cite{gemmateam2025gemma3} for decoder-only and RoBERTa \cite{liu2019roberta} for encoder-only testing. The benchmark datasets being utilized test the models on various types of tasks, ranging from sentiment analysis to commonsense reasoning and logical inference. For the decoder-only models, evaluation is conducted on SST-2 \cite{socher2013recursive} and HellaSwag \cite{zellers2019hellaswag}. The encoder-only model is evaluated on MNLI \cite{williams2017broad} and QQP \cite{iyer2017quora}, which focus on natural language inference and semantic similarity. This selection of benchmarks will showcase which intervention layers matter the most for which tasks, and how the accuracy and loss changes. With accuracy, Centered Kernel Alignment (CKA) and Singular Value Decomposition (SVD) are used to understand the nature of intervention parameters being learnt. The table below specifies the hyperparameters for fine-tuning.
+	The methodology adopted in this paper follows a **controlled layer-wise intervention framework** to systematically analyze how Representation Fine-Tuning (ReFT) affects performance across different transformer depths under resource-constrained settings. For each model, ReFT is applied independently to a single transformer layer at a time, while keeping all other training variables fixed, including optimizer configuration, learning rate, batch size, dataset splits, and intervention hyperparameters. This layer-wise sweep enables isolation of the contribution of each individual layer, allowing a direct comparison of how representational interventions at different depths influence downstream task performance. The experiments are conducted on lightweight decoder-only models, namely Qwen-0.6B \cite{yang2025qwen3} and Granite-350M, as well as an encoder-only model, RoBERTa \cite{liu2019roberta}, to study whether layer-wise ReFT behavior generalizes across model families.
+	
+	Evaluation is performed on a diverse set of benchmarks spanning sentiment analysis, commonsense reasoning, and natural language inference, including SST-2 \cite{socher2013recursive}, HellaSwag \cite{zellers2019hellaswag}, MNLI \cite{williams2017broad}, and QQP \cite{iyer2017quora}. For decoder-only models, HellaSwag and SST-2 are evaluated using a generative single-token classification setup, where the model is prompted with the input context and corresponding answer choices, and is required to generate one token from the label space {A, B, C, D}; accuracy is computed based on exact match with the ground-truth label. This formulation reframes multiple-choice evaluation as constrained token generation, enabling direct assessment of how ReFT influences decision-making behavior in constrainted and regressive settings. In addition to accuracy and loss-based metrics, representational changes induced by intervention are analyzed using Centered Kernel Alignment (CKA) and Singular Value Decomposition (SVD) to study similarity structure and rank dynamics of learned intervention parameters across layers. All experiments are implemented using Google Colab and Kaggle environments, primarily utilizing NVIDIA T4 GPUs for training and evaluation.
 	
 	\begin{table}[t]
 		\centering
@@ -84,6 +86,8 @@
 			\hline
 		\end{tabular}
 	\end{table}
+	
+	\section{Experiments}
 	
 	\begin{thebibliography}{00}
 		
