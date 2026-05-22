@@ -1,4 +1,7 @@
 \relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{vaswani2017attention}
 \citation{brown2020language}
 \citation{houlsby2019parameter}
@@ -6,11 +9,9 @@
 \citation{hu2022lora}
 \citation{wu2024reft}
 \citation{wu2024reft}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
 \citation{wu2024reft}
 \citation{geiger2023causal}
-\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {II}Literature Review}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Representation Finetuning}{1}{}\protected@file@percent }
 \citation{gurnee2023space}
 \citation{engels2024not}
 \citation{song2025demystifying}
@@ -22,6 +23,70 @@
 \citation{zellers2019hellaswag}
 \citation{williams2017broad}
 \citation{iyer2017quora}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Literature Review}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Representation Finetuning}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Linearly Decodable Features}{2}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Model and Layer-wise Analysis}{2}{subsection.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Hyperparameters for fine-tuning across all benchmark datasets.}}{2}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:hyperparameters}{{I}{2}{Hyperparameters for fine-tuning across all benchmark datasets}{table.caption.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Methodology}{2}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Experiments}{2}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Layer-wise Accuracy and Task Sensitivity}{3}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:loss}{{\mbox  {IV-A}}{3}{Layer-wise Accuracy and Task Sensitivity}{section*.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Training Dynamics and Gradient Behavior}{3}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:loss_2}{{\mbox  {IV-B}}{3}{Training Dynamics and Gradient Behavior}{section*.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Layer-wise ReFT Accuracy\% Statistics per Model and Task}}{4}{table.caption.2}\protected@file@percent }
+\newlabel{tab:accuracy_stats}{{II}{4}{Layer-wise ReFT Accuracy\% Statistics per Model and Task}{table.caption.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Mean Accuracy\% by Layer Group per Model and Task}}{4}{table.caption.3}\protected@file@percent }
+\newlabel{tab:grouped_accuracy}{{III}{4}{Mean Accuracy\% by Layer Group per Model and Task}{table.caption.3}{}}
+\newlabel{fig:qwen-sst2}{{1a}{4}{Qwen-0.6B on SST-2}{figure.caption.5}{}}
+\newlabel{sub@fig:qwen-sst2}{{a}{4}{Qwen-0.6B on SST-2}{figure.caption.5}{}}
+\newlabel{fig:qwen-hellaswag}{{1b}{4}{Qwen-0.6B on HellaSwag}{figure.caption.5}{}}
+\newlabel{sub@fig:qwen-hellaswag}{{b}{4}{Qwen-0.6B on HellaSwag}{figure.caption.5}{}}
+\newlabel{fig:granite-sst2}{{1c}{4}{Granite-350M on SST-2}{figure.caption.5}{}}
+\newlabel{sub@fig:granite-sst2}{{c}{4}{Granite-350M on SST-2}{figure.caption.5}{}}
+\newlabel{fig:granite-hellaswag}{{1d}{4}{Granite-350M on HellaSwag}{figure.caption.5}{}}
+\newlabel{sub@fig:granite-hellaswag}{{d}{4}{Granite-350M on HellaSwag}{figure.caption.5}{}}
+\newlabel{fig:roberta-mnli}{{1e}{4}{RoBERTa-Base on MNLI}{figure.caption.5}{}}
+\newlabel{sub@fig:roberta-mnli}{{e}{4}{RoBERTa-Base on MNLI}{figure.caption.5}{}}
+\newlabel{fig:roberta-qqp}{{1f}{4}{RoBERTa-Base on QQP}{figure.caption.5}{}}
+\newlabel{sub@fig:roberta-qqp}{{f}{4}{RoBERTa-Base on QQP}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Layer-wise ReFT validation accuracy across all model-task combinations. Dashed vertical lines delineate early, middle, and late layer regions. Layer 1 of Granite-350M on HellaSwag (accuracy = 0.0) is visible in (d) and discussed in Section~\ref {sec:loss}.}}{4}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:layerwise-accuracy}{{1}{4}{Layer-wise ReFT validation accuracy across all model-task combinations. Dashed vertical lines delineate early, middle, and late layer regions. Layer 1 of Granite-350M on HellaSwag (accuracy = 0.0) is visible in (d) and discussed in Section~\ref {sec:loss}}{figure.caption.5}{}}
+\newlabel{fig:loss-granite-sst2}{{2a}{5}{Granite-350M on SST-2}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-granite-sst2}{{a}{5}{Granite-350M on SST-2}{figure.caption.6}{}}
+\newlabel{fig:loss-granite-hellaswag}{{2b}{5}{Granite-350M on HellaSwag}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-granite-hellaswag}{{b}{5}{Granite-350M on HellaSwag}{figure.caption.6}{}}
+\newlabel{fig:loss-qwen-sst2}{{2c}{5}{Qwen-0.6B on SST-2}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-qwen-sst2}{{c}{5}{Qwen-0.6B on SST-2}{figure.caption.6}{}}
+\newlabel{fig:loss-qwen-hellaswag}{{2d}{5}{Qwen-0.6B on HellaSwag}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-qwen-hellaswag}{{d}{5}{Qwen-0.6B on HellaSwag}{figure.caption.6}{}}
+\newlabel{fig:loss-roberta-mnli}{{2e}{5}{RoBERTa-Base on MNLI}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-roberta-mnli}{{e}{5}{RoBERTa-Base on MNLI}{figure.caption.6}{}}
+\newlabel{fig:loss-roberta-qqp}{{2f}{5}{RoBERTa-Base on QQP}{figure.caption.6}{}}
+\newlabel{sub@fig:loss-roberta-qqp}{{f}{5}{RoBERTa-Base on QQP}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Per-layer ReFT training loss trajectories across all model-task combinations. Each line corresponds to a single transformer layer. The anomalous spike in (b) corresponds to Layer 1 of Granite-350M on HellaSwag, which diverges and never recovers, consistent with the generation collapse discussed in Section~\ref {sec:loss}.}}{5}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:loss}{{2}{5}{Per-layer ReFT training loss trajectories across all model-task combinations. Each line corresponds to a single transformer layer. The anomalous spike in (b) corresponds to Layer 1 of Granite-350M on HellaSwag, which diverges and never recovers, consistent with the generation collapse discussed in Section~\ref {sec:loss}}{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Intervention Weight Analysis}{5}{subsection.4.3}\protected@file@percent }
+\newlabel{fig:grad-granite-sst2}{{3a}{6}{Granite-350M on SST-2}{figure.caption.7}{}}
+\newlabel{sub@fig:grad-granite-sst2}{{a}{6}{Granite-350M on SST-2}{figure.caption.7}{}}
+\newlabel{fig:grad-granite-hellaswag}{{3b}{6}{Granite-350M on HellaSwag}{figure.caption.7}{}}
+\newlabel{sub@fig:grad-granite-hellaswag}{{b}{6}{Granite-350M on HellaSwag}{figure.caption.7}{}}
+\newlabel{fig:grad-qwen-sst2}{{3c}{6}{Qwen-0.6B on SST-2}{figure.caption.7}{}}
+\newlabel{sub@fig:grad-qwen-sst2}{{c}{6}{Qwen-0.6B on SST-2}{figure.caption.7}{}}
+\newlabel{fig:grad-qwen-hellaswag}{{3d}{6}{Qwen-0.6B on HellaSwag}{figure.caption.7}{}}
+\newlabel{sub@fig:grad-qwen-hellaswag}{{d}{6}{Qwen-0.6B on HellaSwag}{figure.caption.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Gradient norm trends across layers during ReFT training for decoder models. Log scale is used on the y-axis to accommodate the wide dynamic range. Higher volatility in HellaSwag configurations relative to SST-2 is consistent with the elevated accuracy variance reported in Table~\ref {tab:accuracy_stats}.}}{6}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:gradnorm}{{3}{6}{Gradient norm trends across layers during ReFT training for decoder models. Log scale is used on the y-axis to accommodate the wide dynamic range. Higher volatility in HellaSwag configurations relative to SST-2 is consistent with the elevated accuracy variance reported in Table~\ref {tab:accuracy_stats}}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Token Prediction}{6}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Discussion}{6}{section.5}\protected@file@percent }
+\citation{wu2024reft}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Model intervention capacity and structural metrics correlation with accuracy}}{7}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:metrics_heatmap}{{4}{7}{Model intervention capacity and structural metrics correlation with accuracy}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Layer 20 vs Layer 21 Token Prediction Statistics, highlighting collapse in token prediction output}}{7}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:20vs21}{{5}{7}{Layer 20 vs Layer 21 Token Prediction Statistics, highlighting collapse in token prediction output}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Limitations}{7}{section.6}\protected@file@percent }
 \bibcite{vaswani2017attention}{1}
 \bibcite{brown2020language}{2}
 \bibcite{hu2022lora}{3}
@@ -32,13 +97,6 @@
 \bibcite{gurnee2023space}{8}
 \bibcite{engels2024not}{9}
 \bibcite{song2025demystifying}{10}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Linearly Decodable Features}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Model and Layer-wise Analysis}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III}Methodology}{2}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Hyperparameters for fine-tuning across all benchmark datasets.}}{2}{}\protected@file@percent }
-\newlabel{tab:hyperparameters}{{I}{2}{}{table.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Experiments}{2}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{2}{}\protected@file@percent }
 \bibcite{li2025small}{11}
 \bibcite{yang2025qwen3}{12}
 \bibcite{gemmateam2025gemma3}{13}
@@ -47,4 +105,5 @@
 \bibcite{zellers2019hellaswag}{16}
 \bibcite{iyer2017quora}{17}
 \bibcite{williams2017broad}{18}
-\gdef \@abspage@last{3}
+\@writefile{toc}{\contentsline {section}{References}{8}{section*.11}\protected@file@percent }
+\gdef \@abspage@last{8}

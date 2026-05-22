@@ -8,6 +8,13 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{hyperref}
+
+\pgfplotsset{compat=1.18}
+
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -23,11 +30,12 @@
 	\maketitle
 	
 	\begin{abstract}
-		Abstract
+		Representation Fine-Tuning (ReFT) has emerged as a parameter-efficient alternative to weight-based adaptation methods, operating directly on hidden states rather than model parameters. However, its behavior under resource constraints and in sub-1B parameter models is rather underexplored. This paper presents a layer-wise analysis of ReFT across three small language models — Qwen-0.6B,  Granite-350M, and RoBERTa-Base — evaluated on four benchmark tasks spanning sentiment classification, commonsense reasoning, and natural language inference. By applying ReFT independently to each transformer layer while holding all other variables fixed, we isolate the contribution of individual layers to task performance. Our analysis reveals that task complexity is the primary moderator 
+		of layer selection sensitivity: simple tasks like sentiment analysis are less sensitive to layer selection, while complex tasks like reasoning are more layer-dependent with fairly high variance among the layers. Analysis of outputs, training dynamics and token generation bias is also done to see the general loss trends, correlation between weight norms and accuracies and more, highlighting practical implications of deploying ReFT on lightweight models.
 	\end{abstract}
 	
 	\begin{IEEEkeywords}
-		component, formatting, style, styling, inserts
+		representation fine-tuning, parameter-efficient fine-tuning, small language models, layer-wise analysis, resource-constrained settings, transformer interpretability, ReFT
 	\end{IEEEkeywords}
 	
 	\section{Introduction}
@@ -42,7 +50,8 @@
 	
 	However, ReFT finetuning has a large hyperparameter search space and it is sensitive to layer selection \cite{wu2024reft}. Also, if ReFT is applied to multiple layers, the intervention matrices must be kept active during inference, introducing some inference delay. Furthermore, ReFT has not been thoroughly studied for Small Language Models (SLMs) under resource constraints on a limited dataset. The original paper also showcases how ReFT is susceptible to nature of tasks as well, further expanding the hyperparameter search space. This requires investigation on how the search space can be narrowed down based on the model architecture and the dataset constraints in place.
 	
-	With this backdrop, it can be highlighted that the efficacy of ReFT is regulated by layer-wise specialization and architectural constraints. Existing work has primarily focused on 7B+ models. The behavior of ReFT in the 'Low-Resource' areas  is under-explored. The research will focus on the following questions:
+	With this backdrop, it can be highlighted that the efficacy of ReFT is regulated by layer-wise specialization and architectural constraints. Existing work has primarily focused on 7B+ models. The behavior of ReFT in the 'Low-Resource' areas  is underexplored. The research will focus on the following questions:
+	
 	\begin{itemize}
 		\item What does the trend of loss looks like for the layers? Do some layers tend to overfit in ReFT while others do not?
 		\item Does the accuracy change drastically between the layers to specific tasks?
@@ -65,9 +74,9 @@
 	
 	\section{Methodology}
 	
-	The methodology adopted in this paper follows a **controlled layer-wise intervention framework** to systematically analyze how Representation Fine-Tuning (ReFT) affects performance across different transformer depths under resource-constrained settings. For each model, ReFT is applied independently to a single transformer layer at a time, while keeping all other training variables fixed, including optimizer configuration, learning rate, batch size, dataset splits, and intervention hyperparameters. This layer-wise sweep enables isolation of the contribution of each individual layer, allowing a direct comparison of how representational interventions at different depths influence downstream task performance. The experiments are conducted on lightweight decoder-only models, namely Qwen-0.6B \cite{yang2025qwen3} and Granite-350M, as well as an encoder-only model, RoBERTa \cite{liu2019roberta}, to study whether layer-wise ReFT behavior generalizes across model families.
+	The methodology adopted in this paper follows a layer-wise intervention framework to systematically analyze how Representation Fine-Tuning (ReFT) affects performance across different transformer depths under resource-constrained settings. For each model, ReFT is applied independently to a single transformer layer at a time, while keeping all other training variables fixed, including optimizer configuration, learning rate, batch size, dataset splits, and intervention hyperparameters. This layer-wise sweep enables isolation of the contribution of each individual layer, allowing a direct comparison of how representational interventions at different depths influence downstream task performance. The experiments are conducted on lightweight decoder-only models, namely Qwen-0.6B \cite{yang2025qwen3} and Granite-350M, as well as an encoder-only model, RoBERTa \cite{liu2019roberta}, to study whether layer-wise ReFT behavior generalizes across model families.
 	
-	Evaluation is performed on a diverse set of benchmarks spanning sentiment analysis, commonsense reasoning, and natural language inference, including SST-2 \cite{socher2013recursive}, HellaSwag \cite{zellers2019hellaswag}, MNLI \cite{williams2017broad}, and QQP \cite{iyer2017quora}. For decoder-only models, HellaSwag and SST-2 are evaluated using a generative single-token classification setup, where the model is prompted with the input context and corresponding answer choices, and is required to generate one token from the label space {A, B, C, D}; accuracy is computed based on exact match with the ground-truth label. This formulation reframes multiple-choice evaluation as constrained token generation, enabling direct assessment of how ReFT influences decision-making behavior in constrainted and regressive settings. In addition to accuracy and loss-based metrics, representational changes induced by intervention are analyzed using Centered Kernel Alignment (CKA) and Singular Value Decomposition (SVD) to study similarity structure and rank dynamics of learned intervention parameters across layers. All experiments are implemented using Google Colab and Kaggle environments, primarily utilizing NVIDIA T4 GPUs for training and evaluation.
+	Evaluation is performed on a diverse set of benchmarks spanning sentiment analysis, commonsense reasoning, and natural language inference, including SST-2 \cite{socher2013recursive}, HellaSwag \cite{zellers2019hellaswag}, MNLI \cite{williams2017broad}, and QQP \cite{iyer2017quora}. For decoder-only models, HellaSwag and SST-2 are evaluated using a generative single-token classification setup, where the model is prompted with the input context and corresponding answer choices, and is required to generate one token from the label space {A, B, C, D}; accuracy is computed based on exact match with the ground-truth label. This formulation reframes multiple-choice evaluation as constrained token generation, enabling direct assessment of how ReFT influences decision-making behavior in constrainted and regressive settings. In addition to accuracy and loss-based metrics, representational changes induced by intervention are analyzed using Singular Value Decomposition (SVD) to study similarity structure and rank dynamics of learned intervention parameters across layers. All experiments are implemented using Google Colab and Kaggle environments, primarily utilizing NVIDIA T4 GPUs for training and evaluation.
 	
 	\begin{table}[t]
 		\centering
@@ -89,10 +98,257 @@
 	
 	\section{Experiments}
 	
+	ReFT is evaluated across three models across four benchmark tasks. For each model, ReFT is applied independently to a single transformer layer at a time while keeping hyperparameters the same. The results are analyzed across layer-wise trends, training loss and gradient dynamics. This analysis potentially offers an explanation about whether ReFT is effective for lightweight models on tight dataset constraints or not.
+	
+	\subsection{Layer-wise Accuracy and Task Sensitivity}
+	
+	\begin{table*}[t]
+		\centering
+		\caption{Layer-wise ReFT Accuracy\% Statistics per Model and Task}
+		\label{tab:accuracy_stats}
+		\begin{tabular}{llcccc}
+			\hline
+			\textbf{Model} & \textbf{Task} & \textbf{Mean Accuracy} & \textbf{Standard Deviation} & \textbf{Best Accuracy} & \textbf{$\text{Acc}_{\max} - \text{Acc}_{\min}$} \\
+			\hline
+			Qwen-0.6B    & SST-2     & 88.54 & 1.68  & 90.47 & 6 \\
+			Qwen-0.6B    & HellaSwag & 42.98 & 8.47  & 49.29  & 22 \\
+			Granite-350M & SST-2     & 89.76 & 0.366 & 90.35 & 1.53 \\
+			Granite-350M & HellaSwag & 33.78 & 6.86  & 38.94 & 7.65$^{\dagger}$ \\
+			RoBERTa-Base & MNLI      & 44.01 & 2.94  & 50.20 & 9.7 \\
+			RoBERTa-Base & QQP       & 73.91 & 1.85  & 77.00 & 6 \\
+			\hline
+			\multicolumn{6}{l}{$^{\dagger}$Layer 1 (accuracy = 0.0) excluded due to generation collapse; see Section~\ref{sec:loss}.} \\
+		\end{tabular}
+	\end{table*}
+	
+	\begin{table*}[t]
+		\centering
+		\caption{Mean Accuracy\% by Layer Group per Model and Task}
+		\label{tab:grouped_accuracy}
+		\begin{tabular}{llccc}
+			\hline
+			\textbf{Model} & \textbf{Task} & \textbf{Early Layers} & \textbf{Middle Layers} & \textbf{Late Layers} \\
+			\hline
+			Qwen-0.6B    & SST-2     & 89.34 (0--9)  & 89.40 (10--19) & 86.47 (20--27) \\
+			Qwen-0.6B    & HellaSwag & 47.64 (0--9)  & 47.85 (10--19) & 31.07 (20--27) \\
+			Granite-350M & SST-2     & 89.55 (0--9)  & 89.81 (10--19) & 89.96 (20--27) \\
+			Granite-350M & HellaSwag & 32.31 (0--9)  & 35.48 (10--19) & 33.50 (20--27) \\
+			RoBERTa-Base & MNLI      & 41.50 (0--2)  & 43.33 (3--5)   & 44.58 (6--9)   \\
+			RoBERTa-Base & QQP       & 72.60 (0--2)  & 72.70 (3--5)   & 74.75 (6--9)   \\
+			\hline
+		\end{tabular}
+	\end{table*}
+	
+	Table~\ref{tab:accuracy_stats} summarizes the layer-wise accuracy statistics across all model-task combinations. A clear pattern emerges when comparing variance across tasks: sentiment classification (SST-2) exhibits substantially lower variance than commonsense reasoning (HellaSwag) for both decoder models, with Granite-350M on SST-2 recording a standard deviation of just 0.36\%  compared to 6.86\% on HellaSwag. This suggests that for easier and well-defined tasks, ReFT interventions are largely not dependent on layer selection - the model's representations are good enough at any layer for accurate classification. Conversely, the increased deviation on HellaSwag indicates that commonsense reasoning is considerably more sensitive to where in the network the intervention is applied, implying that task complexity is a primary moderator of layer selection sensitivity. Furthermore, one more observation can also be made: smaller models (Granite-350M and RoBERTa-Base) showed less deviation in their score than larger model (Qwen-0.6B) based on the layer, suggesting that larger models have richer representations, and have the better optimization surface for intervention compared to smaller models. Smaller architectures on the other hand maintain a more uniform representation across their depth.
+	
+	The grouped accuracy statistics in Table~\ref{tab:grouped_accuracy} further reveal diverging trends across model families. For Qwen-0.6B on both tasks, late layers (20--27) show a consistent drop in mean accuracy relative to early and middle layers — most pronounced on HellaSwag, where late-layer mean accuracy falls to 31.07\% compared to 47.85\% in middle layers. Granite-350M, by contrast, exhibits a monotonic increase across layer groups on SST-2 (89.55\% $\rightarrow$ 89.81\% $\rightarrow$ 89.96\%), suggesting that later representations in this model become progressively more amenable to intervention for simple classification. On HellaSwag, Granite peaks in the middle group (35.48\%) before declining, a pattern consistent with the hypothesis that middle layers encode the richest representations for tougher tasks. The accuracy trend for RoBERTa-Base on both MNLI and QQP diverge from the hypothesis, where each layer is competent enough and leans into the same accuracy group. One possible explanation could be the architectural difference: RoBERTa base is masked, bidirectional language model where representations from past as well as the future are encoded and saturated relatively equal for all the layers, making them less 'specialized' compared to decoder-only models, where future context is not involved.
+	
+	\phantomsection	
+	\label{sec:loss}
+	There was one notable outlier: Layer 1 of Granite-350M on HellaSwag produced a validation accuracy of 0.0, excluded from the aggregate statistics in Table~\ref{tab:accuracy_stats}. Further analysis of the loss reveals that intervention at this layer collapsed entirely to generating a single malformed token, resulting in an accuracy of 0\%. Potential causes of this catastrophic intervention collapse could include poor initialized, unstable optimization at that depth. The layer is further inspected in the loss section to see its training behavior~\ref{sec:loss_2}.
+	
+	\begin{figure*}[t]
+		\centering
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-sst2-layer-vs-accuracy-plot.png}
+			\caption{Qwen-0.6B on SST-2}
+			\label{fig:qwen-sst2}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-hellaswag-layer-vs-accuracy-plot.png}
+			\caption{Qwen-0.6B on HellaSwag}
+			\label{fig:qwen-hellaswag}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-sst2-layer-vs-accuracy-plot.png}
+			\caption{Granite-350M on SST-2}
+			\label{fig:granite-sst2}
+		\end{subfigure}
+		
+		\vspace{0.5em}
+		
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-hellaswag-layer-vs-accuracy-plot.png}
+			\caption{Granite-350M on HellaSwag}
+			\label{fig:granite-hellaswag}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/roberta-mnli-layer-vs-accuracy-plot.png}
+			\caption{RoBERTa-Base on MNLI}
+			\label{fig:roberta-mnli}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/roberta-qqp-layer-vs-accuracy-plot.png}
+			\caption{RoBERTa-Base on QQP}
+			\label{fig:roberta-qqp}
+		\end{subfigure}
+		
+		\caption{Layer-wise ReFT validation accuracy across all model-task combinations. 
+			Dashed vertical lines delineate early, middle, and late layer regions. 
+			Layer 1 of Granite-350M on HellaSwag (accuracy = 0.0) is visible in 
+			(d) and discussed in Section~\ref{sec:loss}.}
+		\label{fig:layerwise-accuracy}
+	\end{figure*}
+	
+	
+	\subsection{Training Dynamics and Gradient Behavior}
+	
+	\begin{figure*}[t]
+		\centering
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-sst2-loss.png}
+			\caption{Granite-350M on SST-2}
+			\label{fig:loss-granite-sst2}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-hellaswag-loss.png}
+			\caption{Granite-350M on HellaSwag}
+			\label{fig:loss-granite-hellaswag}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-sst2-loss.png}
+			\caption{Qwen-0.6B on SST-2}
+			\label{fig:loss-qwen-sst2}
+		\end{subfigure}
+		
+		\vspace{0.5em}
+		
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-hellaswag-loss.png}
+			\caption{Qwen-0.6B on HellaSwag}
+			\label{fig:loss-qwen-hellaswag}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/roberta-mnli-loss.png}
+			\caption{RoBERTa-Base on MNLI}
+			\label{fig:loss-roberta-mnli}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.32\textwidth}
+			\includegraphics[width=\textwidth]{plots/roberta-qqp-loss.png}
+			\caption{RoBERTa-Base on QQP}
+			\label{fig:loss-roberta-qqp}
+		\end{subfigure}
+		
+		\caption{Per-layer ReFT training loss trajectories across all model-task combinations. 
+			Each line corresponds to a single transformer layer. The anomalous spike 
+			in (b) corresponds to Layer 1 of Granite-350M on HellaSwag, which diverges 
+			and never recovers, consistent with the generation collapse discussed in 
+			Section~\ref{sec:loss}.}
+		\label{fig:loss}
+	\end{figure*}
+	
+	Training dynamics across layers reveal patterns that both reinforce and extend the accuracy findings discussed above. Figures~\ref{fig:loss} and~\ref{fig:gradnorm} present the per-layer training loss trajectories and gradient norm trends respectively across all model-task combinations. Rather than uniform convergence behavior, the loss landscapes vary considerably depending on both the model architecture and the task, suggesting that the optimization surface encountered by ReFT interventions is shaped by the interaction of representational depth and task complexity.
+	
+	For Granite-350M on SST-2, training loss curves across all layers converge smoothly and consistently, with most layers reaching similar final loss values within a narrow band. This mirrors the low variance in accuracy reported in Table~\ref{tab:accuracy_stats} and reinforces the interpretation that SST-2 presents a well-conditioned optimization landscape for ReFT regardless of which layer is intervened upon. Gradient norms for this configuration are similarly stable after the initial training steps, settling into a consistent range across layers with no persistent outliers. The picture is one of uniform trainability — ReFT finds a workable solution at virtually every depth for this task, which explains why layer selection has negligible practical consequence for simple sentiment classification.
+	
+	The behavior on HellaSwag is considerably more turbulent. Gradient norms for both Granite-350M and Qwen-0.6B on HellaSwag are more noisy, with sharp spikes persisting well beyond the initial steps rather than stabilizing. This behavior is consistent with higher variance observed in HellaSwag across layers, providing a further account of task sensitivity: ReFT interventions on reasoning tasks is noisier, making the effect of layer choice more vital.
+	
+	\begin{figure*}[t]
+		\centering
+		\begin{subfigure}[b]{0.48\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-sst2-gradnorm.png}
+			\caption{Granite-350M on SST-2}
+			\label{fig:grad-granite-sst2}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\includegraphics[width=\textwidth]{plots/granite-hellaswag-gradnorm.png}
+			\caption{Granite-350M on HellaSwag}
+			\label{fig:grad-granite-hellaswag}
+		\end{subfigure}
+		
+		\vspace{0.5em}
+		
+		\begin{subfigure}[b]{0.48\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-sst2-gradnorm.png}
+			\caption{Qwen-0.6B on SST-2}
+			\label{fig:grad-qwen-sst2}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.48\textwidth}
+			\includegraphics[width=\textwidth]{plots/qwen-hellaswag-gradnorm.png}
+			\caption{Qwen-0.6B on HellaSwag}
+			\label{fig:grad-qwen-hellaswag}
+		\end{subfigure}
+		
+		\caption{Gradient norm trends across layers during ReFT training for decoder models. 
+			Log scale is used on the y-axis to accommodate the wide dynamic range. 
+			Higher volatility in HellaSwag configurations relative to SST-2 is 
+			consistent with the elevated accuracy variance reported in 
+			Table~\ref{tab:accuracy_stats}.}
+		\label{fig:gradnorm}
+	\end{figure*}
+	
+	
+	Within the Qwen-0.6B gradient norm plots, a subtle but noteworthy pattern appears. Certain layers cluster together in terms of gradient norm magnitude and trajectory shape, while other layers do not cluster together. This clustering behavior is less pronounced in Granite-350M, where clusters are harder to identify. One plausible interpretation of this behavior is that despite being small, Qwen-0.6B exhibits more specialized behavior across its layers. This finding can be projected to larger models, where this behavior is possibly more prominent. Granite-350M, being smaller still, may lack the capacity for such specialization, with all layers accounting to more similar representations, doing the heavy lifting.
+	
+	Late layers across both decoder models tend to exhibit higher training loss at convergence relative to early and middle layers, paired with relatively lower gradient norm magnitudes. This combination of high loss and weaker gradient norms suggests that late layers are less receptive to ReFT interventions. One plausible interpretation is that later layers are geared more towards structuring the output instead of semantic richness, making them weaker candidates for ReFT interventions. This is particularly evident in Qwen-0.6B on SST-2, where one layer remains at an anomalously high loss throughout the entire training run without converging, an outlier in Figure~\ref{fig:loss}.
+	
+	\phantomsection
+	\label{sec:loss_2}
+	Inspecting the gradient norm and loss trajectory of Layer 1 of Granite-350M, the layer that catastrophically collapsed, we can observe that the loss spiked during training and it never recovered for that specific layer. Similarly, the gradient norm is similarly erratic. The gradient norms for this layer are correspondingly erratic. Prediction analysis confirms the consequence: the model outputs a single malformed token for every example, producing 0.0 validation accuracy. This underscores the practical importance of monitoring training loss trajectories when applying ReFT to small models, as catastrophic collapse can occur silently from an accuracy standpoint if evaluation is not performed at each layer independently.
+	
+	RoBERTa-Base presents a qualitatively different optimization profile. Training loss curves are noisier step-to-step than those of the decoder models on SST-2, reflecting the larger training set and longer training duration, but show a clear downward trend across all layers without catastrophic divergence. Gradient norms remain active and relatively uniform across layers throughout training, with no strong evidence of the late-layer reluctance pattern seen in the decoder models. This is consistent with the accuracy finding that RoBERTa's later layers are in fact its most productive intervention points — if later layers were resistant to optimization, one would expect elevated loss or diminished gradients there, but neither is observed. The encoder architecture's bidirectional attention may contribute to a more uniform representational structure across depths, making all layers comparably trainable while still allowing later layers to encode richer semantic content relevant to inference tasks like MNLI and QQP.
+	
+	\subsection{Intervention Weight Analysis}
+	
+	Beyond accuracy and training dynamics, the learned intervention weights themselves offer a window into what ReFT captures at each layer. For each trained intervention, three parameter sets are available for analysis: the learned weight matrix $W$, the bias vector $b$, and the rotation matrix $R$, as we are applying the LoReFT. We analyze these through several lenses — Frobenius norm as a measure of total intervention magnitude, effective rank as a measure of spectral diversity, and deviation from orthogonality for the rotation matrix — and correlate these against per-layer validation accuracy using Pearson correlation coefficients.
+	
+	Across all layers and both decoder models, the rotation matrix $R$ behaves identically. Its deviation from orthogonality stays near zero, proving that $R$ consistently maintains its geometric structure as a near-perfect orthonormal basis at every intervention point. Furthermore, the effective rank of $R$ remains stable across layers and shows no meaningful correlation with model accuracy under any configuration.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=1.0\columnwidth]{plots/heat.png}
+		\caption{Model intervention capacity and structural metrics correlation with accuracy}
+		\label{fig:metrics_heatmap}
+	\end{figure}
+	
+	The weight matrix $W$ is more significant. The Frobenius norm of $W$ correlates strongly with accuracy for Qwen-0.6B on HellaSwag, with a Pearson coefficient of $r = 0.792$, the highest observed across all model-task combinations. This indicates that for reasoning tasks in this model, layers where the intervention learns larger weight magnitudes tend to produce better accuracy outcomes — the intervention is doing more work, and that work is productive.
+	
+	The same relationship does not hold uniformly across configurations. For SST-2, the correlation between weight norm and accuracy is negative for both Qwen-0.6B $r = -0.491$ and Granite-350M $r = -0.352$, suggesting that on simpler tasks, larger intervention magnitude may reflect overfitting to the training signal rather than meaningful representational steering. This asymmetry across tasks is itself a meaningful finding: the relationship between intervention magnitude and performance is not universal but steered by task complexity.
+	
+	The strong positive correlation between weight norm and accuracy on Qwen-HellaSwag is further reinforced when considered alongside the accuracy collapse at layers 21–27 in that configuration. These late layers, which produce the lowest accuracy scores, also correspond to interventions with notably lower weight norms.
+	
+	\subsection{Token Prediction}
+	A particularly revealing diagnostic emerges from inspecting the per-layer prediction distributions rather than accuracy alone. For Qwen-0.6B on HellaSwag, layers 0 through 20 maintain a broadly distributed prediction profile across all four answer choices, with no label commanding more than roughly 30\% of predictions — consistent with a model that is genuinely deliberating across options. Layer 20, for instance, distributes predictions as 28.82\% (A), 25.76\% (B), 23.29\% (C), and 22.12\% (D), closely approximating uniform random output, a similar distribution of the validation dataset. At Layer 21, this distribution collapses catastrophically: label A absorbs 79.41\% of all predictions, with B at 14.94\% and C and D effectively abandoned at 1.29\% and 4.35\% respectively. This sharp transition between two adjacent layers — with no corresponding gradual degradation in the layers preceding it — suggests that Layer 21 marks a structural boundary in Qwen-0.6B beyond which ReFT interventions lose the ability to produce calibrated multi-class outputs, defaulting instead to a degenerate near-constant prediction. Layers 22 through 26 intensify this collapse further, with label A reaching as high as 92.24\% at Layer 24 before a partial recovery at Layer 27 (34.82\%), suggesting the final layer retains some residual sensitivity to the input that intermediate late layers have lost entirely.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=1.0\columnwidth]{plots/20vs21.png}
+		\caption{Layer 20 vs Layer 21 Token Prediction Statistics, highlighting collapse in token prediction output}
+		\label{fig:20vs21}
+	\end{figure}
+	
+	A qualitatively different but equally complete collapse is observed at Layer 1 of Granite-350M on HellaSwag. Here the model does not fixate on a valid answer label but instead generates a single malformed token — a backslash character — for 100\% of evaluated examples, producing 0.0 validation accuracy. Unlike the Qwen late-layer collapse, which unfolds progressively across several layers, the Granite Layer 1 failure is total and immediate, pointing to a fundamentally different failure mode: not representational inadequacy at depth, but initialization-level divergence at a layer too early in the network to have developed stable intervention dynamics.
+	
+	\section{Discussion}
+	
+	The results across all three models and four tasks converge on a consistent central finding: layer selection for ReFT intervention is quite sensitive for task. For sentiment classification, ReFT is robust and layer-agnostic for the most part. You can get quite similar results on any layer when dealing with simple and clearly defined tasks, such as SST-2. However, when it comes to more complex tasks like commonsense reasoning, the selection becomes pivotal. Consistently, the middle layer interventions have performed better because of rich semantic representations they hold, while the later layers are more geared for output token generation and positional encoding. This is evident from the loss landscape of late layers, showcasing higher loss with lower gradient norms. We also observed the disparity of layers between relatively bigger and smaller models, where bigger models (like Qwen-0.6B) with ReFT showed better score but with more variance, while smaller models (like Granite-350M and RoBERTa) had lower variance in the accuracies but also performed less, with lower overall scores.
+
+	Encoder and decoder models also differ in how they respond to layer-level interventions. RoBERTa-Base consistently benefits from interventions at later layers on both MNLI and QQP — the opposite of what is observed in decoder models. This reversal is unlikely to be explained by model size alone, since Granite-350M is comparably sized yet follows the decoder-typical pattern of degradation at later layers. A more plausible explanation lies in the architectural difference between bidirectional and causal attention. Because encoder models attend to the full input context at every layer, representations are progressively refined across depth, and later layers may encode more abstract semantic information that is more compatible with representation-level steering. In causal decoder models, later layers are more strongly shaped by the autoregressive objective, encoding signals that are less amenable to geometric intervention. Notably, the original LoReFT paper intervenes across all layers simultaneously when evaluating on GLUE and does not analyze individual layer depth \cite{wu2024reft}, so the layer-wise pattern observed here is not directly reported in prior work.
+
+	The two collapse cases observed — more tokens being a single option in Qwen-0.6B at Layer 21 on HellaSwag and malformed token generation in Granite-350M at Layer 1 — represent distinct failure modes with different practical implications. The Qwen collapse is more of a specialized threshold effect, where the model starts focusing on the generation of the tokens instead of calibrating the output after a certain layer, beyond which the intervention can no longer support the task. In practice, this means that for HellaSwag on Qwen-0.6B, layers beyond 20 can be safely excluded from the search space. The Granite Layer 1 collapse is different in nature, reflecting an optimization instability at a shallow depth that results in total divergence. This is harder to anticipate, but it is detectable early — the divergence appears within the first few training iterations, so full training is not required to identify it.
+	
+	The intervention weight analysis provides additional insight into where and why ReFT succeeds. The rotation matrix $R$ remains near-perfectly orthogonal across layers and contributes little to accuracy variance, suggesting that the geometric subspace constraint in LoReFT is less critical than the learned transformation within it. This implies that simplifying or fixing $R$ in future ReFT variants may have little practical cost, while allocating more capacity to the weight matrix $W$ could be more beneficial. The finding that $\|W\|_F$ correlates positively with accuracy on HellaSwag but negatively on SST-2 further suggests that intervention magnitude is not a reliable proxy for intervention quality — its effect depends on the task.	
+	
+	\section{Limitations}
+	
+	Because of limited hardware (single NVIDIA T4 GPU), the training sets samples used are small. While this reflects the low-resource setting which the paper focuses on, it limits the generalizability of findings to standard fine-tuning regimes, where larger datasets are utilized with more compute. It is plausible that bigger dataset may make the late layers more effective and generalized which may yield better score from them. Secondly, this paper focuses on intervening one layer at a time. While it has demonstrated which layers and layer groups achieve better results, multi-layer interventions have not been demonstrated, which may yield potentially even better results, but this would also require more compute and the search space will be substantial.
+	
+	Furthermore, three models were tested in this paper: Qwen-0.6B, Granite-350M, RoBERTa-Base. While some trends were observed depending on the model architecture and parameter space, evaluating larger models like Phi-3-mini or Gemma-2B would make the results more generalized and concrete to see if the similar trends emerge in larger models, with more specialized layers, better accuracies and whether the middle layers still emerge as the better candidate for ReFT interventions.
+	
 	\begin{thebibliography}{00}
 		
 		\bibitem{vaswani2017attention}
-		A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin, ``Attention is all you need,'' in \textit{Proc. Advances in Neural Information Processing Systems (NeurIPS)}, 2017, pp. 6000--6010.
+		A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin, ''Attention is all you need,'' in \textit{Proc. Advances in Neural Information Processing Systems (NeurIPS)}, 2017, pp. 6000--6010.
 		
 		\bibitem{brown2020language}
 		T. B. Brown, B. Mann, N. Ryder, M. Subbiah, J. D. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell, S. Agarwal, A. Herbert-Voss, G. Krueger, T. Henighan, R. Child, A. Ramesh, D. Ziegler, J. Wu, C. Winter, C. Hesse, M. Chen, E. Sigler, M. Litwin, S. Gray, B. Chess, J. Clark, C. Berner, S. McCandlish, A. Radford, I. Sutskever, and D. Amodei, ``Language models are few-shot learners,'' in \textit{Proc. Advances in Neural Information Processing Systems (NeurIPS)}, 2020.
