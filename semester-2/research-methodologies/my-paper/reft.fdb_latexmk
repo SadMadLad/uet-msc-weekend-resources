@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779408225.56583 "reft.tex" "reft.pdf" "reft" 1779408235.43706 0
+["pdflatex"] 1780818801.03765 "reft.tex" "reft.pdf" "reft" 1780818812.04148 0
   "/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775415801 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1775415801 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1775415801 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -170,6 +170,7 @@
   "/usr/share/texmf-dist/tex/latex/cite/cite.sty" 1775415801 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
   "/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1775415801 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1775415801 46885 8953c67ffba03252c6090aa19568b8ba ""
+  "/usr/share/texmf-dist/tex/latex/float/float.sty" 1775415801 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1775415801 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1775415801 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def" 1775415801 19626 23e2822b9b2b5005f4c549ca98b9334d ""
@@ -228,9 +229,9 @@
   "plots/roberta-mnli-loss.png" 1778959110.84086 1143048 b0f55757f3a33565a21491aa358114de ""
   "plots/roberta-qqp-layer-vs-accuracy-plot.png" 1778947575.69061 145665 c1cdd577691dfa4d28c2134ba689ee67 ""
   "plots/roberta-qqp-loss.png" 1778959112.18481 1125579 2433a19c4a312c0dfbbd1a6ba44aef54 ""
-  "reft.aux" 1779408235.30951 9876 3134edfc35472bd6ca88117ae2362cea "pdflatex"
-  "reft.out" 1779408235.31051 2191 9070db0143e9c8c1278f1b21e3341dbd "pdflatex"
-  "reft.tex" 1779408223.8838 41111 6f7cd7a9ee4136cc78d81a6202469458 ""
+  "reft.aux" 1780818811.87473 10236 d76c34f856529c1e0bab7b48da7ca6ce "pdflatex"
+  "reft.out" 1780818811.87673 2191 9070db0143e9c8c1278f1b21e3341dbd "pdflatex"
+  "reft.tex" 1780818787.25236 41502 546ae3f2ea8aa7cd9ebd2ba5abee941a ""
   (generated)
   "reft.aux"
   "reft.log"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  22 MAY 2026 05:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  7 JUN 2026 12:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -804,45 +804,53 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip59
 )
+(/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count354
+\float@exts=\toks41
+\float@box=\box71
+\@float@everytoks=\toks42
+\@floatcapt=\box72
+)
 (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count354
+\l__color_backend_stack_int=\count355
 ) (./reft.aux)
 \openout1 = `reft.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 -- Lines per column: 56 (exact).
 (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count355
+\scratchcounter=\count356
 \scratchdimen=\dimen330
-\scratchbox=\box71
-\nofMPsegments=\count356
-\nofMParguments=\count357
-\everyMPshowfont=\toks41
-\MPscratchCnt=\count358
+\scratchbox=\box73
+\nofMPsegments=\count357
+\nofMParguments=\count358
+\everyMPshowfont=\toks43
+\MPscratchCnt=\count359
 \MPscratchDim=\dimen331
-\MPnumerator=\count359
-\makeMPintoPDFobject=\count360
-\everyMPtoPDFconversion=\toks42
+\MPnumerator=\count360
+\makeMPintoPDFobject=\count361
+\everyMPtoPDFconversion=\toks44
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -853,13 +861,14 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-Package hyperref Info: Link coloring OFF on input line 20.
+Package hyperref Info: Link coloring OFF on input line 21.
 (./reft.out) (./reft.out)
 \@outlinefile=\write4
 \openout4 = `reft.out'.
@@ -874,31 +883,33 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/f
-onts/enc/dvips/base/8r.enc}
+)
+Underfull \vbox (badness 1024) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fo
+nts/enc/dvips/base/8r.enc}
 
 
-]
-[2]
+] [2]
 <plots/qwen-sst2-layer-vs-accuracy-plot.png, id=124, 450.9648pt x 334.851pt>
 File: plots/qwen-sst2-layer-vs-accuracy-plot.png Graphic file (type png)
 <use plots/qwen-sst2-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/qwen-sst2-layer-vs-accuracy-plot.png  used on in
-put line 153.
+put line 157.
 (pdftex.def)             Requested size: 165.12378pt x 122.61046pt.
 <plots/qwen-hellaswag-layer-vs-accuracy-plot.png, id=126, 450.9648pt x 334.851p
 t>
 File: plots/qwen-hellaswag-layer-vs-accuracy-plot.png Graphic file (type png)
 <use plots/qwen-hellaswag-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/qwen-hellaswag-layer-vs-accuracy-plot.png  used 
-on input line 159.
+on input line 163.
 (pdftex.def)             Requested size: 165.12378pt x 122.61046pt.
 <plots/granite-sst2-layer-vs-accuracy-plot.png, id=127, 450.7239pt x 334.851pt>
 
 File: plots/granite-sst2-layer-vs-accuracy-plot.png Graphic file (type png)
 <use plots/granite-sst2-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/granite-sst2-layer-vs-accuracy-plot.png  used on
- input line 165.
+ input line 169.
 (pdftex.def)             Requested size: 165.12378pt x 122.67177pt.
 <plots/granite-hellaswag-layer-vs-accuracy-plot.png, id=128, 450.9648pt x 334.8
 51pt>
@@ -906,78 +917,75 @@ File: plots/granite-hellaswag-layer-vs-accuracy-plot.png Graphic file (type png
 )
 <use plots/granite-hellaswag-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/granite-hellaswag-layer-vs-accuracy-plot.png  us
-ed on input line 173.
+ed on input line 177.
 (pdftex.def)             Requested size: 165.12378pt x 122.61046pt.
 <plots/roberta-mnli-layer-vs-accuracy-plot.png, id=129, 450.9648pt x 334.851pt>
 
 File: plots/roberta-mnli-layer-vs-accuracy-plot.png Graphic file (type png)
 <use plots/roberta-mnli-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/roberta-mnli-layer-vs-accuracy-plot.png  used on
- input line 179.
+ input line 183.
 (pdftex.def)             Requested size: 165.12378pt x 122.61046pt.
 <plots/roberta-qqp-layer-vs-accuracy-plot.png, id=130, 450.7239pt x 334.851pt>
 File: plots/roberta-qqp-layer-vs-accuracy-plot.png Graphic file (type png)
 <use plots/roberta-qqp-layer-vs-accuracy-plot.png>
 Package pdftex.def Info: plots/roberta-qqp-layer-vs-accuracy-plot.png  used on 
-input line 185.
+input line 189.
 (pdftex.def)             Requested size: 165.12378pt x 122.67177pt.
 <plots/granite-sst2-loss.png, id=133, 626.5809pt x 494.3268pt>
 File: plots/granite-sst2-loss.png Graphic file (type png)
 <use plots/granite-sst2-loss.png>
-Package pdftex.def Info: plots/granite-sst2-loss.png  used on input line 203.
+Package pdftex.def Info: plots/granite-sst2-loss.png  used on input line 207.
 (pdftex.def)             Requested size: 165.12378pt x 130.26431pt.
 <plots/granite-hellaswag-loss.png, id=134, 626.5809pt x 494.3268pt>
 File: plots/granite-hellaswag-loss.png Graphic file (type png)
 <use plots/granite-hellaswag-loss.png>
 Package pdftex.def Info: plots/granite-hellaswag-loss.png  used on input line 2
-09.
+13.
 (pdftex.def)             Requested size: 165.12378pt x 130.26431pt.
 <plots/qwen-sst2-loss.png, id=135, 626.5809pt x 494.3268pt>
 File: plots/qwen-sst2-loss.png Graphic file (type png)
 <use plots/qwen-sst2-loss.png>
-Package pdftex.def Info: plots/qwen-sst2-loss.png  used on input line 215.
+Package pdftex.def Info: plots/qwen-sst2-loss.png  used on input line 219.
 (pdftex.def)             Requested size: 165.12378pt x 130.26431pt.
 <plots/qwen-hellaswag-loss.png, id=136, 626.5809pt x 494.3268pt>
 File: plots/qwen-hellaswag-loss.png Graphic file (type png)
 <use plots/qwen-hellaswag-loss.png>
-Package pdftex.def Info: plots/qwen-hellaswag-loss.png  used on input line 223.
+Package pdftex.def Info: plots/qwen-hellaswag-loss.png  used on input line 227.
 
 (pdftex.def)             Requested size: 165.12378pt x 130.26431pt.
 <plots/roberta-mnli-loss.png, id=137, 633.567pt x 494.3268pt>
 File: plots/roberta-mnli-loss.png Graphic file (type png)
 <use plots/roberta-mnli-loss.png>
-Package pdftex.def Info: plots/roberta-mnli-loss.png  used on input line 229.
+Package pdftex.def Info: plots/roberta-mnli-loss.png  used on input line 233.
 (pdftex.def)             Requested size: 165.12378pt x 128.83118pt.
 <plots/roberta-qqp-loss.png, id=138, 633.567pt x 494.3268pt>
 File: plots/roberta-qqp-loss.png Graphic file (type png)
 <use plots/roberta-qqp-loss.png>
-Package pdftex.def Info: plots/roberta-qqp-loss.png  used on input line 235.
+Package pdftex.def Info: plots/roberta-qqp-loss.png  used on input line 239.
 (pdftex.def)             Requested size: 165.12378pt x 128.83118pt.
-
-Underfull \vbox (badness 7468) has occurred while \output is active []
-
 <plots/granite-sst2-gradnorm.png, id=144, 644.6484pt x 422.0568pt>
 File: plots/granite-sst2-gradnorm.png Graphic file (type png)
 <use plots/granite-sst2-gradnorm.png>
-Package pdftex.def Info: plots/granite-sst2-gradnorm.png  used on input line 25
-7.
+Package pdftex.def Info: plots/granite-sst2-gradnorm.png  used on input line 26
+1.
 (pdftex.def)             Requested size: 247.6778pt x 162.15425pt.
 <plots/granite-hellaswag-gradnorm.png, id=145, 644.6484pt x 422.0568pt>
 File: plots/granite-hellaswag-gradnorm.png Graphic file (type png)
 <use plots/granite-hellaswag-gradnorm.png>
 Package pdftex.def Info: plots/granite-hellaswag-gradnorm.png  used on input li
-ne 263.
+ne 267.
 (pdftex.def)             Requested size: 247.6778pt x 162.15425pt.
 <plots/qwen-sst2-gradnorm.png, id=146, 644.6484pt x 422.0568pt>
 File: plots/qwen-sst2-gradnorm.png Graphic file (type png)
 <use plots/qwen-sst2-gradnorm.png>
-Package pdftex.def Info: plots/qwen-sst2-gradnorm.png  used on input line 271.
+Package pdftex.def Info: plots/qwen-sst2-gradnorm.png  used on input line 275.
 (pdftex.def)             Requested size: 247.6778pt x 162.15425pt.
 <plots/qwen-hellaswag-gradnorm.png, id=147, 644.6484pt x 422.0568pt>
 File: plots/qwen-hellaswag-gradnorm.png Graphic file (type png)
 <use plots/qwen-hellaswag-gradnorm.png>
 Package pdftex.def Info: plots/qwen-hellaswag-gradnorm.png  used on input line 
-277.
+281.
 (pdftex.def)             Requested size: 247.6778pt x 162.15425pt.
  [3]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -992,7 +1000,7 @@ s-accuracy-plot.png> <./plots/roberta-qqp-layer-vs-accuracy-plot.png>]
 <plots/heat.png, id=175, 480.8364pt x 439.6425pt>
 File: plots/heat.png Graphic file (type png)
 <use plots/heat.png>
-Package pdftex.def Info: plots/heat.png  used on input line 309.
+Package pdftex.def Info: plots/heat.png  used on input line 312.
 (pdftex.def)             Requested size: 252.0pt x 230.41325pt.
 
 Underfull \vbox (badness 5490) has occurred while \output is active []
@@ -1003,18 +1011,21 @@ loss.png> <./plots/roberta-qqp-loss.png>]
 <plots/20vs21.png, id=186, 494.3268pt x 276.5532pt>
 File: plots/20vs21.png Graphic file (type png)
 <use plots/20vs21.png>
-Package pdftex.def Info: plots/20vs21.png  used on input line 325.
+Package pdftex.def Info: plots/20vs21.png  used on input line 329.
 (pdftex.def)             Requested size: 252.0pt x 140.9854pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [6 <./plots/granite-sst2-gradnorm.png> <./plots/granite-hellaswag-gradnorm.png
 > <./plots/qwen-sst2-gradnorm.png> <./plots/qwen-hellaswag-gradnorm.png>] [7 <.
 /plots/heat.png> <./plots/20vs21.png>]
-Underfull \hbox (badness 1701) in paragraph at lines 375--376
+Underfull \hbox (badness 1701) in paragraph at lines 379--380
 \OT1/ptm/m/n/8 ``Not All Lan-guage Model Fea-tures Are Lin-ear,'' \OT1/ptm/m/it
 /8 arXiv preprint
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 387--388
+Underfull \hbox (badness 10000) in paragraph at lines 391--392
 []\OT1/ptm/m/n/8 Gemma Team, ``Gemma 3 tech-ni-cal re-port,'' \OT1/ptm/m/it/8 a
 rXiv preprint
  []
@@ -1039,13 +1050,13 @@ Package rerunfilecheck Info: File `reft.out' has not changed.
 (rerunfilecheck)             Checksum: 9070DB0143E9C8C1278F1B21E3341DBD;2191.
  ) 
 Here is how much of TeX's memory you used:
- 33501 strings out of 469515
- 782907 string characters out of 5470807
- 1294675 words of memory out of 5000000
- 61605 multiletter control sequences out of 15000+600000
- 665727 words of font info for 112 fonts, out of 8000000 for 9000
+ 33562 strings out of 469515
+ 783838 string characters out of 5470807
+ 1296264 words of memory out of 5000000
+ 61661 multiletter control sequences out of 15000+600000
+ 666834 words of font info for 113 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 99i,12n,108p,1441b,523s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,12n,108p,1385b,525s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/
@@ -1056,7 +1067,7 @@ fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
 r/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-dist/font
 s/type1/urw/times/utmri8a.pfb>
-Output written on reft.pdf (8 pages, 11180143 bytes).
+Output written on reft.pdf (8 pages, 11180372 bytes).
 PDF statistics:
  278 PDF objects out of 1000 (max. 8388607)
  202 compressed objects within 3 object streams
